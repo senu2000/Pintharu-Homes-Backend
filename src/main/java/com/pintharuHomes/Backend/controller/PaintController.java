@@ -45,4 +45,31 @@ public class PaintController {
         return new  ResponseEntity<>(paintDto, HttpStatus.OK);
     }
 
+    //        Build get all paint by name REST API
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<PaintDto>> getPaintsByName(@PathVariable("name") String name){
+        List<PaintDto> paintDto = paintService.getPaintsByName(name);
+        return new  ResponseEntity<>(paintDto, HttpStatus.OK);
+    }
+
+    //        Build get paint by ID REST API
+    @GetMapping("{id}")
+    public ResponseEntity<PaintDto> getPaintById(@PathVariable("id") Integer id){
+        PaintDto paintDto = paintService.getPaintById(id);
+        return ResponseEntity.ok(paintDto);
+    }
+
+    //        Build update paint REST API
+    @PutMapping("{id}")
+    public ResponseEntity<?> updatePaint(@PathVariable("id") Integer id, @RequestParam("image") MultipartFile file, @ModelAttribute PaintDto paintDto){
+        PaintDto updatedPaint = paintService.updatePaint(id, file, paintDto);
+        return new ResponseEntity<>(updatedPaint, HttpStatus.OK);
+    }
+
+    //        Build delete paint REST API
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deletePaint(@PathVariable("id") Integer id){
+        paintService.deletePaint(id);
+        return ResponseEntity.ok("Paint Deleted Successfully");
+    }
 }

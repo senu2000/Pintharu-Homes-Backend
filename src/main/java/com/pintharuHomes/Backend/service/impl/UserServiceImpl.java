@@ -12,6 +12,8 @@ import com.pintharuHomes.Backend.repository.TokenRepository;
 import com.pintharuHomes.Backend.repository.UserRepository;
 import com.pintharuHomes.Backend.service.UserService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +28,30 @@ public class UserServiceImpl implements UserService {
 
     private TokenRepository tokenRepository;
 
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+
+//    @Override
+//    public UserDto getUserByUsername(String username) {
+//        Optional<User> optionalUser = userRepository.findByUsername(username);
+//        User user = optionalUser.orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with username: " + username));
+//
+//        return UserMapper.mapToUserDto(user);
+//    }
+
     @Override
     public UserDto getUserByUsername(String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
-        User user = optionalUser.orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with username: " + username));
-
-        return UserMapper.mapToUserDto(user);
+        UserDto userDto;
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            userDto = UserMapper.mapToUserDto(user);
+        } else {
+            // If user doesn't exist, return null or an empty DTO
+            userDto = null; // or new UserDto(); depending on your implementation
+        }
+        return userDto;
     }
+
 
     @Override
     public UserDto getUserById(Integer id) {

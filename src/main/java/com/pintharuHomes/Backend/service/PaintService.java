@@ -11,4 +11,12 @@ public interface PaintService {
 
     List<PaintDto> getAllPaints();
 
+    PaintDto getPaintById(Integer id);
+
+    List<PaintDto> getPaintsByName(String name);
+
+    PaintDto updatePaint(Integer id, MultipartFile file, PaintDto paintDto);
+
+    void deletePaint(Integer id);
+
 }

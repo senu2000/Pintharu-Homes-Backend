@@ -2,6 +2,7 @@ package com.pintharuHomes.Backend.service.impl;
 
 import com.pintharuHomes.Backend.dto.PaintDto;
 import com.pintharuHomes.Backend.entity.Paint;
+import com.pintharuHomes.Backend.exception.ResourceNotFoundException;
 import com.pintharuHomes.Backend.mapper.PaintMapper;
 import com.pintharuHomes.Backend.repository.PaintRepository;
 import com.pintharuHomes.Backend.service.PaintService;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,6 +78,72 @@ public class PaintServiceImpl implements PaintService {
                     return paintDto;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PaintDto getPaintById(Integer id) {
+        Paint paint = paintRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No paint exist for ID:" + id));
+        PaintDto paintDto = PaintMapper.mapToPaintDto(paint);
+        try {
+            paintDto.setImageData(getImageData(paint.getImage()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return paintDto;
+    }
+
+    @Override
+    public List<PaintDto> getPaintsByName(String name) {
+        List<Paint> paints = paintRepository.findPaintsByName(name);
+        return paints.stream().map(
+                paint -> {
+                    PaintDto paintDto = PaintMapper.mapToPaintDto(paint);
+                    try {
+                        paintDto.setImageData(getImageData(paint.getImage()));
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                    return paintDto;
+                }).collect(Collectors.toList());
+    }
+
+    @Override
+    public PaintDto updatePaint(Integer id, MultipartFile file, PaintDto paintDto) {
+        String filePath=FOLDER_PATH+file.getOriginalFilename();
+
+        Paint paint = paintRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No paint exist for ID:" + id));
+        paint.setName(paintDto.getName());
+        paint.setImage(filePath);
+        paint.setBrand(paintDto.getBrand());
+        paint.setQuantity(paintDto.getQuantity());
+        paint.setCategory(paintDto.getCategory());
+        paint.setPrice(paintDto.getPrice());
+        paint.setVolume(paintDto.getVolume());
+
+        try {
+            file.transferTo(new File(filePath));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        Paint updatedPaint = paintRepository.save(paint);
+        return PaintMapper.mapToPaintDto(updatedPaint);
+    }
+
+    @Override
+    public void deletePaint(Integer id) {
+        Paint paint = paintRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No paint exist for ID:" + id));
+        String filePath = paint.getImage();
+        if (filePath != null) {
+            File file = new File(filePath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+
+        paintRepository.deleteById(id);
     }
 
     private byte[] getImageData(String filePath) throws IOException{

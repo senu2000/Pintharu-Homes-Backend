@@ -3,8 +3,10 @@ package com.pintharuHomes.Backend.controller;
 import com.pintharuHomes.Backend.dto.TokenDto;
 import com.pintharuHomes.Backend.dto.UserDto;
 import com.pintharuHomes.Backend.entity.Role;
+import com.pintharuHomes.Backend.exception.ResourceNotFoundException;
 import com.pintharuHomes.Backend.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/user")
 public class UserController {
 
