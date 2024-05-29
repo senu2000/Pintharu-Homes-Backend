@@ -46,8 +46,7 @@ public class UserServiceImpl implements UserService {
             User user = optionalUser.get();
             userDto = UserMapper.mapToUserDto(user);
         } else {
-            // If user doesn't exist, return null or an empty DTO
-            userDto = null; // or new UserDto(); depending on your implementation
+            userDto = null;
         }
         return userDto;
     }
