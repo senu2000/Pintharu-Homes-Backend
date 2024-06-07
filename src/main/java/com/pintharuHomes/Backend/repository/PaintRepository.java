@@ -13,4 +13,8 @@ public interface PaintRepository extends JpaRepository<Paint, Integer> {
 
     @Query("SELECT p FROM Paint p WHERE p.name LIKE %:name%")
     List<Paint> findPaintsByName(String name);
+
+    List<Paint> findPaintsByCategory(String category);
+
+    List<Paint> findPaintsByBrand(String brand);
 }

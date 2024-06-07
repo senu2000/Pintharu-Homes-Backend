@@ -15,6 +15,10 @@ public interface PaintService {
 
     List<PaintDto> getPaintsByName(String name);
 
+    List<PaintDto> getPaintsByCategory(String category);
+
+    List<PaintDto> getPaintsByBrand(String brand);
+
     PaintDto updatePaint(Integer id, MultipartFile file, PaintDto paintDto);
 
     void deletePaint(Integer id);

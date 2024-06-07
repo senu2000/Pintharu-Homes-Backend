@@ -52,6 +52,20 @@ public class PaintController {
         return new  ResponseEntity<>(paintDto, HttpStatus.OK);
     }
 
+    //        Build get all paint by category REST API
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<PaintDto>> getPaintsByCategory(@PathVariable("category") String category){
+        List<PaintDto> paintDto = paintService.getPaintsByCategory(category);
+        return new  ResponseEntity<>(paintDto, HttpStatus.OK);
+    }
+
+    //        Build get all paint by brand REST API
+    @GetMapping("/brand/{brand}")
+    public ResponseEntity<List<PaintDto>> getPaintsByBrand(@PathVariable("brand") String brand){
+        List<PaintDto> paintDto = paintService.getPaintsByBrand(brand);
+        return new  ResponseEntity<>(paintDto, HttpStatus.OK);
+    }
+
     //        Build get paint by ID REST API
     @GetMapping("{id}")
     public ResponseEntity<PaintDto> getPaintById(@PathVariable("id") Integer id){

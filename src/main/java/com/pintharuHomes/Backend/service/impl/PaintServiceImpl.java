@@ -109,6 +109,36 @@ public class PaintServiceImpl implements PaintService {
     }
 
     @Override
+    public List<PaintDto> getPaintsByCategory(String category) {
+        List<Paint> paints = paintRepository.findPaintsByCategory(category);
+        return paints.stream().map(
+                paint -> {
+                    PaintDto paintDto = PaintMapper.mapToPaintDto(paint);
+                    try {
+                        paintDto.setImageData(getImageData(paint.getImage()));
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                    return paintDto;
+                }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PaintDto> getPaintsByBrand(String brand) {
+        List<Paint> paints = paintRepository.findPaintsByBrand(brand);
+        return paints.stream().map(
+                paint -> {
+                    PaintDto paintDto = PaintMapper.mapToPaintDto(paint);
+                    try {
+                        paintDto.setImageData(getImageData(paint.getImage()));
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                    return paintDto;
+                }).collect(Collectors.toList());
+    }
+
+    @Override
     public PaintDto updatePaint(Integer id, MultipartFile file, PaintDto paintDto) {
         String filePath=FOLDER_PATH+file.getOriginalFilename();
 
@@ -146,7 +176,8 @@ public class PaintServiceImpl implements PaintService {
         paintRepository.deleteById(id);
     }
 
-    private byte[] getImageData(String filePath) throws IOException{
+    //change private to public static
+    public static byte[] getImageData(String filePath) throws IOException{
         File file = new File(filePath);
         if (!file.exists()) {
             throw new IOException("File not found: " + filePath);
