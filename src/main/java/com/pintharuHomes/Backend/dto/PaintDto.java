@@ -23,7 +23,7 @@ public class PaintDto {
 
     private byte[] imageData;
 
-    // Modify the constructor to accept null for imageFile
+
     public PaintDto(Integer id, String name, MultipartFile imageFile, String brand, Integer quantity, String category, Integer price, String volume) {
         this.id = id;
         this.name = name;

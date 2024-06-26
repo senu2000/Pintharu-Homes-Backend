@@ -1,5 +1,6 @@
 package com.pintharuHomes.Backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,6 +43,20 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<Cart> carts;
+
+    public User(Integer id, String username, String password, Integer phone_number, String address, Role role, List<Token> tokens) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phone_number = phone_number;
+        this.address = address;
+        this.role = role;
+        this.tokens = tokens;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

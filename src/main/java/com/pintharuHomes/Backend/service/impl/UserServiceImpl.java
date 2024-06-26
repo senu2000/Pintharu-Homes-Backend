@@ -2,12 +2,14 @@ package com.pintharuHomes.Backend.service.impl;
 
 import com.pintharuHomes.Backend.dto.TokenDto;
 import com.pintharuHomes.Backend.dto.UserDto;
+import com.pintharuHomes.Backend.entity.Cart;
 import com.pintharuHomes.Backend.entity.Role;
 import com.pintharuHomes.Backend.entity.Token;
 import com.pintharuHomes.Backend.entity.User;
 import com.pintharuHomes.Backend.exception.ResourceNotFoundException;
 import com.pintharuHomes.Backend.mapper.TokenMapper;
 import com.pintharuHomes.Backend.mapper.UserMapper;
+import com.pintharuHomes.Backend.repository.CartRepository;
 import com.pintharuHomes.Backend.repository.TokenRepository;
 import com.pintharuHomes.Backend.repository.UserRepository;
 import com.pintharuHomes.Backend.service.UserService;
@@ -27,6 +29,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     private TokenRepository tokenRepository;
+
+    private CartRepository cartRepository;
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -87,8 +91,16 @@ public class UserServiceImpl implements UserService {
             }
         }
 
+        List<Cart> cartUsers = cartRepository.findByUser(user);
+        if (cartUsers != null && !cartUsers.isEmpty()) {
+            for (Cart cart : cartUsers) {
+                cart.setUser(null);
+                cartRepository.delete(cart);
+            }
+        }
+
         userRepository.deleteById(id);
 
-        return "User and associated tokens deleted successfully";
+        return "User and all associations deleted successfully";
     }
 }

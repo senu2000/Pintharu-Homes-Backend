@@ -3,6 +3,8 @@ package com.pintharuHomes.Backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -38,4 +40,18 @@ public class Paint {
 
     @Column(name = "volume")
     private String volume;
+
+    @OneToMany(mappedBy = "paint")
+    private List<Cart> carts;
+
+    public Paint(Integer id, String name, String image, String brand, Integer quantity, String category, Integer price, String volume) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.brand = brand;
+        this.quantity = quantity;
+        this.category = category;
+        this.price = price;
+        this.volume = volume;
+    }
 }

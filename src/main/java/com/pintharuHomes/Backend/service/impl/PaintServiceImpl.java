@@ -1,9 +1,11 @@
 package com.pintharuHomes.Backend.service.impl;
 
 import com.pintharuHomes.Backend.dto.PaintDto;
+import com.pintharuHomes.Backend.entity.Cart;
 import com.pintharuHomes.Backend.entity.Paint;
 import com.pintharuHomes.Backend.exception.ResourceNotFoundException;
 import com.pintharuHomes.Backend.mapper.PaintMapper;
+import com.pintharuHomes.Backend.repository.CartRepository;
 import com.pintharuHomes.Backend.repository.PaintRepository;
 import com.pintharuHomes.Backend.service.PaintService;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 public class PaintServiceImpl implements PaintService {
 
     private PaintRepository paintRepository;
+
+    private CartRepository cartRepository;
 
     private final String FOLDER_PATH = "D:/sem6/Project II/Pintharu-Homes-Backend/src/main/java/com/pintharuHomes/Backend/upload_img/";
 
@@ -170,6 +174,14 @@ public class PaintServiceImpl implements PaintService {
             File file = new File(filePath);
             if (file.exists()) {
                 file.delete();
+            }
+        }
+
+        List<Cart> cartPaints = cartRepository.findByPaint(paint);
+        if (cartPaints != null && !cartPaints.isEmpty()) {
+            for (Cart cart : cartPaints) {
+                cart.setPaint(null);
+                cartRepository.delete(cart);
             }
         }
 
