@@ -44,6 +44,9 @@ public class Paint {
     @OneToMany(mappedBy = "paint")
     private List<Cart> carts;
 
+    @OneToMany(mappedBy = "paint")
+    private List<OrderDetail> orderDetails;
+
     public Paint(Integer id, String name, String image, String brand, Integer quantity, String category, Integer price, String volume) {
         this.id = id;
         this.name = name;

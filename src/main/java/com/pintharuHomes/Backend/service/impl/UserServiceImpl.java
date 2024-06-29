@@ -2,14 +2,12 @@ package com.pintharuHomes.Backend.service.impl;
 
 import com.pintharuHomes.Backend.dto.TokenDto;
 import com.pintharuHomes.Backend.dto.UserDto;
-import com.pintharuHomes.Backend.entity.Cart;
-import com.pintharuHomes.Backend.entity.Role;
-import com.pintharuHomes.Backend.entity.Token;
-import com.pintharuHomes.Backend.entity.User;
+import com.pintharuHomes.Backend.entity.*;
 import com.pintharuHomes.Backend.exception.ResourceNotFoundException;
 import com.pintharuHomes.Backend.mapper.TokenMapper;
 import com.pintharuHomes.Backend.mapper.UserMapper;
 import com.pintharuHomes.Backend.repository.CartRepository;
+import com.pintharuHomes.Backend.repository.OrderDetailRepository;
 import com.pintharuHomes.Backend.repository.TokenRepository;
 import com.pintharuHomes.Backend.repository.UserRepository;
 import com.pintharuHomes.Backend.service.UserService;
@@ -31,6 +29,8 @@ public class UserServiceImpl implements UserService {
     private TokenRepository tokenRepository;
 
     private CartRepository cartRepository;
+
+    private OrderDetailRepository orderDetailRepository;
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -96,6 +96,14 @@ public class UserServiceImpl implements UserService {
             for (Cart cart : cartUsers) {
                 cart.setUser(null);
                 cartRepository.delete(cart);
+            }
+        }
+
+        List<OrderDetail> orderUsers = orderDetailRepository.findByUser(user);
+        if (orderUsers != null && !orderUsers.isEmpty()) {
+            for (OrderDetail orderDetail : orderUsers) {
+                orderDetail.setUser(null);
+                orderDetailRepository.delete(orderDetail);
             }
         }
 

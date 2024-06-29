@@ -48,6 +48,10 @@ public class User implements UserDetails {
     @JsonManagedReference
     private List<Cart> carts;
 
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<OrderDetail> orderDetails;
+
     public User(Integer id, String username, String password, Integer phone_number, String address, Role role, List<Token> tokens) {
         this.id = id;
         this.username = username;
