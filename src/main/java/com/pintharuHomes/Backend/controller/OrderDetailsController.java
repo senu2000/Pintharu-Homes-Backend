@@ -2,7 +2,7 @@ package com.pintharuHomes.Backend.controller;
 
 import com.pintharuHomes.Backend.dto.OrderDetailsDto;
 import com.pintharuHomes.Backend.dto.OrderInputDto;
-import com.pintharuHomes.Backend.entity.OrderDetail;
+import com.pintharuHomes.Backend.entity.TransactionDetails;
 import com.pintharuHomes.Backend.service.OrderDetailService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,5 +48,12 @@ public class OrderDetailsController {
     @GetMapping("/markOrderAsDispatched/{orderId}")
     public void markOrderAsDispatched(@PathVariable("orderId") Integer orderId){
         orderDetailService.markOrderAsDispatched(orderId);
+    }
+
+    //        Build create transaction REST API
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/createTransaction/{amount}")
+    public TransactionDetails createTransaction(@PathVariable("amount") Integer amount){
+        return orderDetailService.createTransaction(amount);
     }
 }

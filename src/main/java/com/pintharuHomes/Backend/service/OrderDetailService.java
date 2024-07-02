@@ -2,9 +2,9 @@ package com.pintharuHomes.Backend.service;
 
 import com.pintharuHomes.Backend.dto.OrderDetailsDto;
 import com.pintharuHomes.Backend.dto.OrderInputDto;
+import com.pintharuHomes.Backend.entity.TransactionDetails;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public interface OrderDetailService {
 
@@ -15,4 +15,7 @@ public interface OrderDetailService {
     List<OrderDetailsDto> getAllOrders();
 
     void markOrderAsDispatched(Integer orderId);
+
+    TransactionDetails createTransaction(Integer amount);
+
 }

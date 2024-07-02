@@ -44,7 +44,21 @@ public class OrderDetail {
     @JsonBackReference
     private User user;
 
-    public OrderDetail(String orderFullName, String orderFullAddress, String orderContactNo, String orderStatus, Integer orderAmount, Paint paint, User user) {
+    @Column(name = "transactionId")
+    private String razorpayPaymentId;
+
+//    public OrderDetail(String orderFullName, String orderFullAddress, String orderContactNo, String orderStatus, Integer orderAmount, Paint paint, User user) {
+//        this.orderFullName = orderFullName;
+//        this.orderFullAddress = orderFullAddress;
+//        this.orderContactNo = orderContactNo;
+//        this.orderStatus = orderStatus;
+//        this.orderAmount = orderAmount;
+//        this.paint = paint;
+//        this.user = user;
+//    }
+
+
+    public OrderDetail(String orderFullName, String orderFullAddress, String orderContactNo, String orderStatus, Integer orderAmount, Paint paint, User user, String razorpayPaymentId) {
         this.orderFullName = orderFullName;
         this.orderFullAddress = orderFullAddress;
         this.orderContactNo = orderContactNo;
@@ -52,5 +66,6 @@ public class OrderDetail {
         this.orderAmount = orderAmount;
         this.paint = paint;
         this.user = user;
+        this.razorpayPaymentId = razorpayPaymentId;
     }
 }

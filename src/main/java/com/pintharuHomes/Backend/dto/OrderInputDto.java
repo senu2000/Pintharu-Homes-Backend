@@ -12,5 +12,6 @@ public class OrderInputDto {
     private String fullName;
     private String fullAddress;
     private String contactNumber;
+    private String razorpayPaymentId;
     private List<OrderPaintQuantity> orderPaintQuantityList;
 }
