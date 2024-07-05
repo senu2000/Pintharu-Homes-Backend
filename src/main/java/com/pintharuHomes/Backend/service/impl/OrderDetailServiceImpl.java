@@ -66,6 +66,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     orderInputDto.getRazorpayPaymentId()
             );
 
+            paint.setQuantity(paint.getQuantity() - o.getQuantity());
+            paintRepository.save(paint);
+
             if (isCartCheckout) {
                 List<Cart> cartList = cartRepository.findByUser(user);
                 cartList.stream().forEach(cart -> cartRepository.deleteById(cart.getId()));
