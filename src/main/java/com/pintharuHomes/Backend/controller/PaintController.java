@@ -45,6 +45,13 @@ public class PaintController {
         return new  ResponseEntity<>(paintDto, HttpStatus.OK);
     }
 
+    //        Build get all paint count REST API
+    @GetMapping("/count")
+    public ResponseEntity<Integer> getPaintCount(){
+        Integer paintCount = paintService.getPaintCount();
+        return new  ResponseEntity<>(paintCount, HttpStatus.OK);
+    }
+
     //        Build get all paint by name REST API
     @GetMapping("/name/{name}")
     public ResponseEntity<List<PaintDto>> getPaintsByName(@PathVariable("name") String name){

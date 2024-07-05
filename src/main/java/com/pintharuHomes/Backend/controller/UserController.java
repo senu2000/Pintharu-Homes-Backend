@@ -49,6 +49,14 @@ public class UserController {
         return ResponseEntity.ok(allUsers);
     }
 
+    //    Build get all users count by role
+    @GetMapping("count/{role}")
+    public ResponseEntity<Integer> getUserCount (@PathVariable("role") String role){
+        Role userRole = Role.valueOf(role.toUpperCase());
+        Integer userCount = userService.getUserCount(userRole);
+        return ResponseEntity.ok(userCount);
+    }
+
 //    Build delete user REST API
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUser (@PathVariable("id") Integer id){

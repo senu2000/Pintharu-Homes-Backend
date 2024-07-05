@@ -16,5 +16,7 @@ public interface UserService {
 
     List<UserDto> getAllUsersByRole(Role role);
 
+    Integer getUserCount(Role role);
+
     String deleteUser(Integer id);
 }

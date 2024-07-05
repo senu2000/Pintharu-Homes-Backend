@@ -89,6 +89,12 @@ public class PaintServiceImpl implements PaintService {
     }
 
     @Override
+    public Integer getPaintCount() {
+        List<Paint> paints = paintRepository.findAll();
+        return paints.size();
+    }
+
+    @Override
     public PaintDto getPaintById(Integer id) {
         Paint paint = paintRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No paint exist for ID:" + id));

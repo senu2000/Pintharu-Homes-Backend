@@ -11,6 +11,8 @@ public interface PaintService {
 
     List<PaintDto> getAllPaints();
 
+    Integer getPaintCount();
+
     PaintDto getPaintById(Integer id);
 
     List<PaintDto> getPaintsByName(String name);

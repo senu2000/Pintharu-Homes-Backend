@@ -76,6 +76,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Integer getProjectsCount() {
+        List<Project> projects = projectRepository.findAll();
+        return projects.size();
+    }
+
+    @Override
     public ProjectDto getProjectById(Integer id) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No paint exist for ID:" + id));

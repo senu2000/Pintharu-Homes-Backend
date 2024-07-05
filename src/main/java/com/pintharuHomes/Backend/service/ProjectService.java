@@ -14,6 +14,8 @@ public interface ProjectService {
 
     List<ProjectDto> getAllProjects();
 
+    Integer getProjectsCount();
+
     ProjectDto getProjectById(Integer id);
 
     ProjectDto updateProject(Integer id,

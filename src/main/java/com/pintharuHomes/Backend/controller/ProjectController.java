@@ -36,6 +36,13 @@ public class ProjectController {
         return new ResponseEntity<>(allProjects, HttpStatus.OK);
     }
 
+    //        Build get all project REST API
+    @GetMapping("/count")
+    public ResponseEntity<Integer> getProjectsCount(){
+        Integer projectsCount = projectService.getProjectsCount();
+        return new ResponseEntity<>(projectsCount, HttpStatus.OK);
+    }
+
     //        Build get project by ID REST API
     @GetMapping("{id}")
     public ResponseEntity<ProjectDto> getProjectById(@PathVariable("id") Integer id){

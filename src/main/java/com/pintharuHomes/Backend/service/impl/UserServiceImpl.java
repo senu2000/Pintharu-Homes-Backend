@@ -78,6 +78,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Integer getUserCount(Role role) {
+        List<User> users = userRepository.findUsersByRole(role);
+        return users.size();
+    }
+
+    @Override
     public String deleteUser(Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with ID: " + id));
