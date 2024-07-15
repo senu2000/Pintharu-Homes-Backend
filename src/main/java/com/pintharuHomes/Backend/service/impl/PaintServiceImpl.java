@@ -60,6 +60,7 @@ public class PaintServiceImpl implements PaintService {
                 .brand(paintDto.getBrand())
                 .quantity(paintDto.getQuantity())
                 .category(paintDto.getCategory())
+                .noDisPrice(paintDto.getNoDisPrice())    // new
                 .price(paintDto.getPrice())
                 .volume(paintDto.getVolume()).
                 build());
@@ -163,6 +164,7 @@ public class PaintServiceImpl implements PaintService {
         paint.setBrand(paintDto.getBrand());
         paint.setQuantity(paintDto.getQuantity());
         paint.setCategory(paintDto.getCategory());
+        paint.setNoDisPrice(paintDto.getNoDisPrice());  // new
         paint.setPrice(paintDto.getPrice());
         paint.setVolume(paintDto.getVolume());
 

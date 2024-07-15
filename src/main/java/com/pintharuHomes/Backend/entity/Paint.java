@@ -35,6 +35,10 @@ public class Paint {
     @Column(name = "category")
     private String category;
 
+    //new column
+    @Column(name = "price_without_dis")
+    private Integer noDisPrice;
+
     @Column(name = "price")
     private Integer price;
 
@@ -54,6 +58,18 @@ public class Paint {
         this.brand = brand;
         this.quantity = quantity;
         this.category = category;
+        this.price = price;
+        this.volume = volume;
+    }
+
+    public Paint(Integer id, String name, String image, String brand, Integer quantity, String category, Integer noDisPrice, Integer price, String volume) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.brand = brand;
+        this.quantity = quantity;
+        this.category = category;
+        this.noDisPrice = noDisPrice;
         this.price = price;
         this.volume = volume;
     }

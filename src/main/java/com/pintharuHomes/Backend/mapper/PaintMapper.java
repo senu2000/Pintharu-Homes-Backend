@@ -14,6 +14,7 @@ public class PaintMapper {
                 paint.getBrand(),
                 paint.getQuantity(),
                 paint.getCategory(),
+                paint.getNoDisPrice(),
                 paint.getPrice(),
                 paint.getVolume()
         );

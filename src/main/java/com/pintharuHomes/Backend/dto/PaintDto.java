@@ -18,6 +18,9 @@ public class PaintDto {
     private String brand;
     private Integer quantity;
     private String category;
+
+    //new
+    private Integer noDisPrice;
     private Integer price;
     private String volume;
 
@@ -31,6 +34,18 @@ public class PaintDto {
         this.brand = brand;
         this.quantity = quantity;
         this.category = category;
+        this.price = price;
+        this.volume = volume;
+    }
+
+    public PaintDto(Integer id, String name, MultipartFile imageFile, String brand, Integer quantity, String category, Integer noDisPrice, Integer price, String volume) {
+        this.id = id;
+        this.name = name;
+        this.imageFile = imageFile;
+        this.brand = brand;
+        this.quantity = quantity;
+        this.category = category;
+        this.noDisPrice = noDisPrice;
         this.price = price;
         this.volume = volume;
     }
