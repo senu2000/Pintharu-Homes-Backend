@@ -6,6 +6,7 @@ import com.pintharuHomes.Backend.service.impl.PaintServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +33,7 @@ public class PaintController {
     }
 
     //        Build add paint REST API
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/createpaint")
     public ResponseEntity<?> createPaint(@RequestParam("image") MultipartFile file, @ModelAttribute PaintDto paintDto){
         PaintDto savedPaint = paintService.createPaint(file, paintDto);
@@ -81,6 +83,7 @@ public class PaintController {
     }
 
     //        Build update paint REST API
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<?> updatePaint(@PathVariable("id") Integer id, @RequestParam("image") MultipartFile file, @ModelAttribute PaintDto paintDto){
         PaintDto updatedPaint = paintService.updatePaint(id, file, paintDto);
